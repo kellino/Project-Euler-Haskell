@@ -1,0 +1,1 @@
+an attempt at some Project Euler problems, in Haskell
