@@ -1,5 +1,6 @@
 -- Problem 8
--- this code is pretty ugly, but it's fast enough and gives the correct answer, so it'll do!
+-- this code is pretty ugly, but it's fast enough and gives 
+-- the correct answer, so it'll do!
 
 import Data.Char
 
