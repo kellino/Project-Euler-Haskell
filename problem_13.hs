@@ -2,7 +2,7 @@
 
 main :: IO ()
 main = do
-    nums <- readFile "./nums_for_13"
+    nums <- readFile "./data/nums_for_13"
     print $ take 10 $ (show . sumNums) $ words nums
 
 sumNums :: [String] -> Integer

@@ -15,7 +15,7 @@ vals = Map.fromList $ zip ['A'..'Z'] [1..]
 
 main :: IO ()
 main = do
-    names <- readFile "./p022_names.txt"
+    names <- readFile "./data/p022_names.txt"
     print $ sum $ 
         map (\(x,y) -> x * sumName y) $ zip [1..] $ 
             dropWhile (== "") $ sort . splitOn " " . cleanup $ names
