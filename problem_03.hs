@@ -1,6 +1,7 @@
+module Euler03 where
+
 main :: IO ()
 main = print $ last . factor $ 600851475143
-
 
 factor :: Integer -> [Integer]
 factor = fac' (2:[3,5..]) where
