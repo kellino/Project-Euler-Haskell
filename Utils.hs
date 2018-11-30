@@ -1,26 +1,29 @@
 -- utility functions for Euler
 
-module Utils (
-    primes
-  , primes'
-) where
+module Utils
+    ( primes
+    , modexp
+    )
+where
 
-import Data.List.Ordered
+import Data.Bits
 
-primes :: Integer -> [Integer]
-primes m = sieve [2..m]
-    where
-        sieve [] = []
-        sieve (p:xs) = p : sieve (xs `minus` [p, p+p..])
+minus :: Ord a => [a] -> [a] -> [a]
+minus []       ys       = ys
+minus xs       []       = xs
+minus (x : xs) (y : ys) = case compare x y of
+    LT -> x : minus xs (y : ys)
+    EQ -> minus xs ys
+    GT -> minus (x : xs) ys
 
+primes :: [Int]
+primes = sieve [2..]
+    where sieve [] = []
+          sieve (x:xs) = x : sieve (xs `minus` [x*x, x*x+x..])
 
-primes' :: [Integer]
-primes' = 2 : filter (null . tail . fasterprimes) [3,5..]
-
-fasterprimes :: Integer -> [Integer]
-fasterprimes n = factor n primes'
-    where
-        factor n (p:ps)
-          | p*p > n        = [n]
-          | n `mod` p == 0 = p : factor (n `div` p) (p:ps)
-          | otherwise      = factor n ps
+modexp :: (Num t, Bits t, Integral a) => a -> t -> a -> a
+modexp _ _ 1 = 0
+modexp _ 0 _ = 1
+modexp b e m = 
+    let c = if testBit e 0 then b `mod` m else 1
+     in (c * modexp (b*b `rem` m) (shiftR e 1) m) `mod` m
