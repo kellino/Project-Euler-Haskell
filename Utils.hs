@@ -4,6 +4,7 @@ module Utils
     ( primes
     , modexp
     , primeFactors
+    , isPrime
     , properDivisors
     )
 where
@@ -23,6 +24,9 @@ primes :: [Integer]
 primes = 2 : sieve [3,5..]
     where sieve [] = []
           sieve (x:xs) = x : sieve (xs `minus` [x*x, x*x+x..])
+
+isPrime :: Integer -> Bool
+isPrime n = n > 1 && foldr (\p r -> p * p > n || ((n `rem` p) == 0 && r)) True primes
 
 modexp :: (Num t, Bits t, Integral a) => a -> t -> a -> a
 modexp _ _ 1 = 0
